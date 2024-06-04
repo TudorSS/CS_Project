@@ -259,6 +259,17 @@ namespace CS_Project_Air_Quality_App
                 else
                     Console.Write("|MissInf");
             }
+            Console.Write("\nLabel: ");
+            for (int hour = 6; hour < 22; hour++)
+            {
+                string str = targetDay.GetLabel(hour);
+                if (str == "Low") { Console.Write("|  Low   "); }
+                else if (str == "Medium") { Console.Write("| Medium "); }
+                else if (str == "High") { Console.Write("| High  "); }
+                else Console.Write("|   -   ");
+
+
+            }
             Console.WriteLine();
         }
         //Usage: Used to write to a file as a table all the private fields from Day object
@@ -274,12 +285,101 @@ namespace CS_Project_Air_Quality_App
         //      - day_info = string with details about the day: Month, Observatory
         //      - day = object of type Day
 
-        public static void Compare_two_days_as_Table(string day1_info, Day day1, string day2_info, Day day2)
+        public static void Compare_two_days_as_Table(string day1_info, Day Day1, string day2_info, Day Day2)
         {
-            Console.WriteLine("\n"+day1_info);
-            DataReader.WriteDataConsole(day1);
-            Console.WriteLine("\n"+day2_info);
-            DataReader.WriteDataConsole(day2);
+            Console.WriteLine("\n" + day1_info);
+            DataReader.WriteDataConsole(Day1);
+            Console.WriteLine("\n" + day2_info);
+            DataReader.WriteDataConsole(Day2);
+
+            Console.WriteLine("\n======================================================================================================================================\n");
+            Console.WriteLine("Statistics:\n");
+
+            int number_of_missing_info = 0;
+            string[] data_to_print = { "Temperature", "Humidity", "NoCars", "NoFlights", "Factories", "CloudsProb" };
+            foreach (string crt_data in data_to_print)
+            {
+                number_of_missing_info = DataCompare.Print_Statistics(Day1, Day2, crt_data, number_of_missing_info);
+            }
+                
+
+            Console.WriteLine("\nThe number of missing info is: " + number_of_missing_info +"\n");
+        }
+
+        public static int Print_Statistics(Day Day1, Day Day2,string statistics_about, int nr_of_missing_info)
+        {
+            // min max
+            double min_crt_val = double.MaxValue;
+            double max_crt_val = double.MinValue;
+            int max_crt_val_day = 0;
+            int min_crt_val_day = 0;
+            int min_day_hour = 0;
+            int max_day_hour = 0;
+            // mean
+            int nr_to_divide = 0;
+            double sum_of_values = 0;
+            for (int hour = 6; hour < 22; hour++)
+            {
+                string str_1;
+                string str_2;
+                switch (statistics_about)
+                {
+                    case "Temperature":
+                        str_1 = Day1.GetTemperature(hour).ToString("F2");
+                        str_2 = Day2.GetTemperature(hour).ToString("F2");
+                        break;
+                    case "Humidity":
+                        str_1 = Day1.GetHumidity(hour).ToString("F2");
+                        str_2 = Day2.GetHumidity(hour).ToString("F2");
+                        break;
+                    case "NoCars":
+                        str_1 = Day1.GetNoCars(hour).ToString("F2");
+                        str_2 = Day2.GetNoCars(hour).ToString("F2");
+                        break;
+                    case "NoFlights":
+                        str_1 = Day1.GetNoFlights(hour).ToString("F2");
+                        str_2 = Day2.GetNoFlights(hour).ToString("F2");
+                        break;
+                    case "Factories":
+                        str_1 = Day1.GetFactories(hour).ToString("F2");
+                        str_2 = Day2.GetFactories(hour).ToString("F2");
+                        break;
+                    case "CloudsProb":
+                        str_1 = Day1.GetCloudsProb(hour).ToString("F2");
+                        str_2 = Day2.GetCloudsProb(hour).ToString("F2");
+                        break;
+                    default:
+                        str_1 = Day1.GetTemperature(hour).ToString("F2");
+                        str_2 = Day2.GetTemperature(hour).ToString("F2");
+                        break;
+
+                }
+                // min val
+                if (double.Parse(str_1) < min_crt_val && double.Parse(str_1) != -1) { min_crt_val = double.Parse(str_1); min_crt_val_day = Day1.dayID; min_day_hour = hour; }
+                if (double.Parse(str_2) < min_crt_val && double.Parse(str_2) != -1) { min_crt_val = double.Parse(str_2); min_crt_val_day = Day2.dayID; min_day_hour = hour; }
+                // max val
+                if (double.Parse(str_1) > max_crt_val && double.Parse(str_1) != -1) { max_crt_val = double.Parse(str_1); max_crt_val_day = Day1.dayID; max_day_hour = hour; }
+                if (double.Parse(str_2) > max_crt_val && double.Parse(str_2) != -1) { max_crt_val = double.Parse(str_2); max_crt_val_day = Day2.dayID; max_day_hour = hour; }
+                // mean val and missing info count
+                if (double.Parse(str_1) == -1.0) { nr_of_missing_info++; }
+                else
+                {
+                    sum_of_values += double.Parse(str_1);
+                    nr_to_divide++;
+                }
+                if (double.Parse(str_2) == -1.0) { nr_of_missing_info++; }
+                else
+                {
+                    sum_of_values += double.Parse(str_2);
+                    nr_to_divide++;
+                }
+            }
+            Console.WriteLine(statistics_about + ":");
+            Console.WriteLine("\tMean: " + (sum_of_values / nr_to_divide).ToString("F2"));
+            Console.WriteLine("\tMax:  " + max_crt_val + " at day: " + max_crt_val_day + ", hour: " + max_day_hour + ":00");
+            Console.WriteLine("\tMin:  " + min_crt_val + " at day: " + min_crt_val_day + ", hour: " + min_day_hour + ":00");
+
+            return nr_of_missing_info;
         }
     }
     
