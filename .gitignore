@@ -1,0 +1,29 @@
+# Binaries and Outputs
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.xml
+
+# User-Specific and IDE Files
+*.user
+*.suo
+.vs/
+.vscode/
+.idea/
+
+# Package Management Files
+packages/
+*.lock
+
+# Logs and Temporary Files
+*.log
+*.tmp
+*.cache
+
+# Visual Studio Generated Files
+*.csproj.user
+
+# Generated Files
+*.generated.cs
