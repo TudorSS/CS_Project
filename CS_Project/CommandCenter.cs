@@ -156,7 +156,24 @@ namespace CS_Project_Air_Quality_App
         {
             List<string> userInput = GetUserInput();
 
-            //Debug 
+            Day newDay = new Day { dayID = int.Parse(userInput[1]) };
+
+            Observator newObs = new Observator()
+            {
+                month = userInput[0],
+                obsID = userInput[1],
+            };
+
+            DataReader.ReadData(ref newDay, newObs.month, newObs.obsID, newDay.dayID.ToString());
+
+            DataReader.WriteDataConsole(newDay);
+
+            Console.WriteLine("1. Make prediction");
+            Console.WriteLine("2. Set labels");
+            Console.WriteLine("3. Save Data");
+            Console.WriteLine("Chose an option: ");
+
+            string choice = Console.ReadLine();
 
         }
 
@@ -170,26 +187,25 @@ namespace CS_Project_Air_Quality_App
 
         static void Main(string[] args)
         {
-            Observator myObs = new Observator();
             //MENU
             //1)Show Data
             //-> Take from the user: Month, Obs, Day
             //-> Use object of type Observatori -> to Read Data and populate the fields Month/Observatory/Day/values
             //-> Call a method to WriteDataToConsole 
-            string[] inputThing = { "July", "3", "20" };
-            myObs.month = inputThing[0];
-            myObs.obsID = inputThing[1];
-            myObs.ReadDataOfDay(inputThing[2]);
-            string[] inputThing2 = { "July", "3", "21" };
-            myObs.ReadDataOfDay(inputThing2[2]);
-            foreach (Day currentDay in myObs.days)
-            {
-                if (currentDay.dayID == 20)
-                    Console.WriteLine($"From month {myObs.month}, observatory obs{myObs.obsID}, day {currentDay.dayID} temperature at hour 10 is: {currentDay.GetTemperature(10)}");
-            }
+            //string[] inputThing = { "July", "3", "20" };
+            //myObs.month = inputThing[0];
+            //myObs.obsID = inputThing[1];
+            //myObs.ReadDataOfDay(inputThing[2]);
+            //string[] inputThing2 = { "July", "3", "21" };
+            //myObs.ReadDataOfDay(inputThing2[2]);
+            //foreach (Day currentDay in myObs.days)
+            //{
+            //    if (currentDay.dayID == 20)
+            //        Console.WriteLine($"From month {myObs.month}, observatory obs{myObs.obsID}, day {currentDay.dayID} temperature at hour 10 is: {currentDay.GetTemperature(10)}");
+            //}
 
-            //Example of usage
-            DataCompare.Compare_two_days_as_Table("info1", myObs.days[0], "info2", myObs.days[1]);
+            ////Example of usage
+            //DataCompare.Compare_two_days_as_Table("info1", myObs.days[0], "info2", myObs.days[1]);
 
             //2)Compare Data
             //-> Take from the user info about first data: Month, Obs, Day
@@ -199,9 +215,8 @@ namespace CS_Project_Air_Quality_App
             
             //3)Get average from a day for a field -> temperature/humidity
 
-
-            //CommandCenter commandCenter = new CommandCenter();
-            //commandCenter.Start();
+            CommandCenter commandCenter = new CommandCenter();
+            commandCenter.Start();
         }
     }
 }
