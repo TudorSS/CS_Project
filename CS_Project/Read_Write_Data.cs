@@ -180,7 +180,7 @@ namespace CS_Project_Air_Quality_App
                             {
                                 if (splitString[index] != null)
                                     if (splitString[index].Trim() == "Low" || splitString[index].Trim() == "Medium" || splitString[index].Trim() == "High" || splitString[index].Trim() == "")
-                                        targetDay.AddLabel(splitString[index]);
+                                        targetDay.AddLabel(splitString[index].Trim());
                                     else
                                         throw new Exception("Wrong value for \"label\" field in csv file for add label method");
                             }
