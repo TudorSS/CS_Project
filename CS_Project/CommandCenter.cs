@@ -183,6 +183,27 @@ namespace CS_Project_Air_Quality_App
             List<string> userInput1 = GetUserInput();
             Console.WriteLine("Chose second data to compare: ");
             List<string> userInput2 = GetUserInput();
+
+            Day newDay1 = new Day { dayID = int.Parse(userInput1[1]) };
+            Day newDay2 = new Day { dayID = int.Parse(userInput2[1]) };
+
+            Observator newObs1 = new Observator()
+            {
+                month = userInput1[0],
+                obsID = userInput2[1],
+            };
+
+            Observator newObs2 = new Observator()
+            {
+                month = userInput1[0],
+                obsID = userInput2[1],
+            };
+
+            DataReader.ReadData(ref newDay1, newObs1.month, newObs1.obsID, newDay1.dayID.ToString());
+            DataReader.WriteDataConsole(newDay1);
+
+            DataReader.ReadData(ref newDay2, newObs2.month, newObs2.obsID, newDay2.dayID.ToString());
+            DataReader.WriteDataConsole(newDay2);
         }
 
         static void Main(string[] args)
