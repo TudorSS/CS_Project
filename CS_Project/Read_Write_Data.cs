@@ -263,14 +263,14 @@ namespace CS_Project_Air_Quality_App
             for (int hour = 6; hour < 22; hour++)
             {
                 string str = targetDay.GetLabel(hour);
-                if (str == "Low") { Console.Write("|  Low   "); }
-                else if (str == "Medium") { Console.Write("| Medium "); }
+                if (str == "Low") { Console.Write("|  Low  "); }
+                else if (str == "Medium") { Console.Write("| Medium"); }
                 else if (str == "High") { Console.Write("| High  "); }
                 else Console.Write("|   -   ");
 
 
             }
-            Console.WriteLine();
+            Console.WriteLine('\n');
         }
         //Usage: Used to write to a file as a table all the private fields from Day object
         public static void WriteDataFile(Day targetDay)
