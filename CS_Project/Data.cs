@@ -28,9 +28,24 @@ namespace CS_Project_Air_Quality_App
             } 
             days.Add(auxDay);
         }
-        public void ShowDataOfDay(string dayID, int option)
+        public void ShowDataOfDay(string dayID)
         {
-
+            try
+            {
+                foreach (Day currentDay in this.days)
+                {
+                    if (currentDay.dayID == int.Parse(dayID))
+                    {
+                        DataReader.WriteDataConsole(currentDay);
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception from Show Data Of Day function: {ex.Message}");
+            }
+            
         }
     }
     public class Day
