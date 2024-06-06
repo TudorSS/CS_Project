@@ -243,5 +243,196 @@ namespace CS_Project_Air_Quality_App
             }
            
         }
+
+        //Make prediction for missing data
+        public void MakePredictions()
+        {
+            //Prediction for temperature
+            double average = 0;
+            int count = 0;
+            int countMissing = 0;
+            for (int indexOfElements = 0; indexOfElements < this.temperature.Count; indexOfElements++)//16 is the number of hours from the input data
+            {
+                if (this.temperature[indexOfElements] != -1)
+                {
+                    average += this.temperature[indexOfElements];
+                    count++;
+                }
+                else
+                {
+                    countMissing++;
+                }
+            }
+            if (countMissing > 0)
+            {
+                Console.WriteLine($"For temperature {countMissing} predictions were made!");
+                if (count > 0)
+                {
+                    average /= count;
+                }
+                for (int index = 0; index < this.temperature.Count; index++)
+                {
+                    if (this.temperature[index] == -1)
+                    {
+                        this.temperature[index] = average;
+                    }
+                }
+            }
+            //Prediction for humidity
+            average = 0;
+            count = 0;
+            countMissing = 0;
+            for (int indexOfElements = 0; indexOfElements < this.humidity.Count; indexOfElements++)//16 is the number of hours from the input data
+            {
+                if (this.humidity[indexOfElements] != -1)
+                {
+                    average += this.humidity[indexOfElements];
+                    count++;
+                }
+                else
+                {
+                    countMissing++;
+                }
+            }
+            if (countMissing > 0)
+            {
+                Console.WriteLine($"For humidity {countMissing} predictions were made!");
+                if (count > 0)
+                {
+                    average /= count;
+                }
+                for (int index = 0; index < this.humidity.Count; index++)
+                {
+                    if (this.humidity[index] == -1)
+                    {
+                        this.humidity[index] = average;
+                    }
+                }
+            }
+            //Prediction for clouds_prob
+            average = 0;
+            count = 0;
+            countMissing = 0;
+            for (int indexOfElements = 0; indexOfElements < this.clouds_prob.Count; indexOfElements++)//16 is the number of hours from the input data
+            {
+                if (this.clouds_prob[indexOfElements] != -1)
+                {
+                    average += this.clouds_prob[indexOfElements];
+                    count++;
+                }
+                else
+                {
+                    countMissing++;
+                }
+            }
+            if (countMissing > 0)
+            {
+                Console.WriteLine($"For clouds_prob {countMissing} predictions were made!");
+                if (count > 0)
+                {
+                    average /= count;
+                }
+                for (int index = 0; index < this.clouds_prob.Count; index++)
+                {
+                    if (this.clouds_prob[index] == -1)
+                    {
+                        this.clouds_prob[index] = average;
+                    }
+                }
+            }
+            //Prediction for no_cars
+            average = 0;
+            count = 0;
+            countMissing = 0;
+            for (int indexOfElements = 0; indexOfElements < this.no_cars.Count; indexOfElements++)//16 is the number of hours from the input data
+            {
+                if (this.no_cars[indexOfElements] != -1)
+                {
+                    average += this.no_cars[indexOfElements];
+                    count++;
+                }
+                else
+                {
+                    countMissing++;
+                }
+            }
+            if (countMissing > 0)
+            {
+                Console.WriteLine($"For no_cars {countMissing} predictions were made!");
+                if (count > 0)
+                {
+                    average /= count;
+                }
+                for (int index = 0; index < this.no_cars.Count; index++)
+                {
+                    if (this.no_cars[index] == -1)
+                    {
+                        this.no_cars[index] = (int)average;
+                    }
+                }
+            }
+            //Prediction for no_flights
+            average = 0;
+            count = 0;
+            countMissing = 0;
+            for (int indexOfElements = 0; indexOfElements < this.no_flights.Count; indexOfElements++)//16 is the number of hours from the input data
+            {
+                if (this.no_flights[indexOfElements] != -1)
+                {
+                    average += this.no_flights[indexOfElements];
+                    count++;
+                }
+                else
+                {
+                    countMissing++;
+                }
+            }
+            if (countMissing > 0)
+            {
+                Console.WriteLine($"For no_cars {countMissing} predictions were made!");
+                if (count > 0)
+                {
+                    average /= count;
+                }
+                for (int index = 0; index < this.no_flights.Count; index++)
+                {
+                    if (this.no_flights[index] == -1)
+                    {
+                        this.no_flights[index] = (int)average;
+                    }
+                }
+            }
+            //Prediction for factories
+            average = 0;
+            count = 0;
+            countMissing = 0;
+            for (int indexOfElements = 0; indexOfElements < this.factories.Count; indexOfElements++)//16 is the number of hours from the input data
+            {
+                if (this.factories[indexOfElements] != -1)
+                {
+                    average += this.factories[indexOfElements];
+                    count++;
+                }
+                else
+                {
+                    countMissing++;
+                }
+            }
+            if (countMissing > 0)
+            {
+                Console.WriteLine($"For factories {countMissing} predictions were made!");
+                if (count > 0)
+                {
+                    average /= count;
+                }
+                for (int index = 0; index < this.factories.Count; index++)
+                {
+                    if (this.factories[index] == -1)
+                    {
+                        this.factories[index] = (int)average;
+                    }
+                }
+            }
+        }
     }
 }
